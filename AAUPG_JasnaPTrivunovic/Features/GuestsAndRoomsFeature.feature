@@ -23,6 +23,7 @@ Scenario: Interaction with a number of persons and rooms
         And User sets Rooms and Guests 
           | RoomNumber | Adults | Children |
           | 1          | 2      | 2        |
-          | 2          | 1      | 1        |
+          | 2          | 1      | 2        |
+        And clicks on Search button
     Then search results for 'Arundel' are displayed
         And search results are shown for requested persons

@@ -52,7 +52,17 @@ namespace AAUPG_JasnaPTrivunovic.Steps
         [When(@"User sets Rooms and Guests")]
         public void WhenUserSetsRoomsAndGuests(Table table)
         {
-            RoomAndGuestsPage.PopulateRoomsAndGuests(table);
+            _scenarioContext["TotalPersonsCount"] = RoomAndGuestsPage.PopulateRoomsAndGuests(table);
+            _scenarioContext["TotalRoomsCount"] = table.RowCount;
         }
+
+        [Then(@"search results are shown for requested persons")]
+        public void ThenSearchResultsAreShownForRequestedPersons()
+        {
+            var actualRoomAndGuests = RoomAndGuestsPage.ActualRoomsAndGuests.GetAttribute("value");
+            var expectedRoomAndGuests = $"{_scenarioContext["TotalRoomsCount"]} rooms, {_scenarioContext["TotalPersonsCount"]} guests";
+            Assert.AreEqual(expectedRoomAndGuests, actualRoomAndGuests);
+        }
+
     }
 }

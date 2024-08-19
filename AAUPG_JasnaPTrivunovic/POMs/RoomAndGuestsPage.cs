@@ -28,6 +28,9 @@ namespace AAUPG_JasnaPTrivunovic.POMs
         public IWebElement ActualCheckOutDate => Wait.Until(ExpectedConditions
             .ElementToBeClickable(By.Id("checkOut")));
 
+        public IWebElement ActualRoomsAndGuests => Wait.Until(ExpectedConditions
+            .ElementToBeClickable(By.Id("rooms-display")));
+
         public void SelectNumberOfPersonsInRoom(string adults, string children, int roomNumber) 
         {
             string adultsInRoomXpath = $"(//div[contains(@class,'rooms_adult')])[{roomNumber+2}]";
@@ -49,8 +52,9 @@ namespace AAUPG_JasnaPTrivunovic.POMs
             childrenNumberOption.Click();
         }
 
-        public void PopulateRoomsAndGuests(Table table) 
+        public int PopulateRoomsAndGuests(Table table) 
         {
+            int totalPersonsNumber = 0;
             RoomAndGuestsDialog.Click();
 
             int rowCount = table.Rows.Count;
@@ -65,12 +69,15 @@ namespace AAUPG_JasnaPTrivunovic.POMs
                 int roomNumber = int.Parse(row["RoomNumber"]);
                 int adults = int.Parse(row["Adults"]);
                 int children = int.Parse(row["Children"]);
+                totalPersonsNumber += adults + children;
 
                 SelectNumberOfPersonsInRoom(adults.ToString(), children.ToString(), roomNumber);
             }
 
             ScrollToElement(DoneBtn);
             ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].click();", DoneBtn);
+
+            return totalPersonsNumber;
         }
 
         public void SelectDateFromDatePicker(string desiredDate)

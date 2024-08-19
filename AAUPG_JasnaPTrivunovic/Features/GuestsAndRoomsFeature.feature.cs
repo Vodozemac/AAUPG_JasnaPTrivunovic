@@ -150,14 +150,17 @@ this.ScenarioInitialize(scenarioInfo);
                 table1.AddRow(new string[] {
                             "2",
                             "1",
-                            "1"});
+                            "2"});
 #line 23
         testRunner.And("User sets Rooms and Guests", ((string)(null)), table1, "And ");
 #line hidden
 #line 27
-    testRunner.Then("search results for \'Arundel\' are displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.And("clicks on Search button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 28
+    testRunner.Then("search results for \'Arundel\' are displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 29
         testRunner.And("search results are shown for requested persons", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
